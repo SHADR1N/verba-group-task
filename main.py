@@ -54,7 +54,7 @@ class Scrap:
             html = self.parse(html)
 
         if multiple is True:
-            return html.find_all(block, attrs=attr, multiple=True)
+            return html.find_all(block, attrs=attr)
         else:
             return html.find(block, attrs=attr)
 
@@ -98,8 +98,8 @@ class Scrap:
         """
         logger.debug("Quote data collection process")
 
-        quote_text = self.find_elements(quote, "span", {"class": "text"}).text
-        author_name = self.find_elements(quote, "small", {"class": "author"}).text
+        quote_text = self.find_elements(quote, "span", {"class": "text"}).text.strip()
+        author_name = self.find_elements(quote, "small", {"class": "author"}).text.strip()
         author_href = self.find_elements(quote, "a", {"href": True}).get("href")
         tags = [
             {"href": tag.get("href"), "name": tag.text}
